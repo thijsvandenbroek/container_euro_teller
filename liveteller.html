@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Teller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #teller {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Huidig Bedrag</h1>
+    <div id="teller">€0,00</div>
+    
+    <script>
+        function updateTeller() {
+            const startDatum = new Date(Date.UTC(2024, 1, 1, 0, 0, 0)); // 1 februari 2024, 00:00:00 UTC
+            const nu = new Date();
+            const verschilSeconden = Math.floor((nu - startDatum) / 1000);
+            const bedragPerSeconde = 30129 / (30.44 * 24 * 60 * 60);
+            const huidigBedrag = verschilSeconden * bedragPerSeconde;
+            
+            console.log("Startdatum:", startDatum);
+            console.log("Huidige datum:", nu);
+            console.log("Verschil in seconden:", verschilSeconden);
+            console.log("Bedrag per seconde:", bedragPerSeconde);
+            console.log("Huidig bedrag:", huidigBedrag);
+            
+            document.getElementById("teller").innerText = huidigBedrag.toLocaleString("nl-NL", { style: "currency", currency: "EUR" });
+        }
+        
+        updateTeller();
+        setInterval(updateTeller, 1000); // Elke seconde updaten
+    </script>
+</body>
+</html>
